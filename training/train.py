@@ -11,3 +11,10 @@ class SimpleNN:
     
     def backwards():
         ...
+
+
+def main():
+    ...
+
+if __name__ == "__main__":
+    main()
