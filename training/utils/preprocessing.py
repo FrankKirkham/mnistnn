@@ -39,9 +39,9 @@ def load_data():
     )
 
     # Create and return dataloaders
-    train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=64)
-    test_loader = DataLoader(test_data, batch_size=64)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=32)
+    test_loader = DataLoader(test_data, batch_size=32)
 
     return train_loader, val_loader, test_loader, means, stds
 
