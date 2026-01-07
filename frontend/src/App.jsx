@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Canvas from './Canvas.jsx'
+import { useRef } from 'react'
+import { Button } from 'react-bootstrap';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // useRef is used instead of useState in order to prevent 
+  // component being reloaded
+  const canvasRef = useRef(null);
+
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <p>Draw some numbers in the canvas then click classify!</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <Canvas canvasRef={canvasRef} />
+      <div className="d-flex gap-2">
+        <Button variant="success" size="lg">Classify Numbers</Button>
+        <Button onClick={clearCanvas} variant="primary" size="lg">Clear Canvas</Button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
