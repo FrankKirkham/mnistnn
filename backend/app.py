@@ -22,10 +22,20 @@ def classify_upload():
     tensor, locations = process.to_MNIST_tensor(image)
 
     # Classify these tensors
-    ...
+    results = classify.find_percentages(tensor)
 
     # Return a list of classified numbers, with their positions in the image
-    return ...
+    final = []
+    for result, location in zip(results, locations):
+        dict = {
+            'results': result,
+            'location': location
+        }
+        final.append(dict)
+
+    print(final)
+
+    return final
 
 if __name__ == '__main__':
     app.run(debug=True)

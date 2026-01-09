@@ -22,7 +22,7 @@ def to_array(im: Image) -> np.ndarray:
 def find_and_seperate_shapes(im_array: np.ndarray) -> Tuple[List[np.ndarray], 
                                                             List[Tuple[int, int, int, int]]]:
     # Binarise the image, so it can be used in ndimage
-    binary_im = im_array > 5 # 5 so we have some leeway on what counts as a black pixel
+    binary_im = im_array > 100 # 5 so we have some leeway on what counts as a black pixel
 
     # Label the different shapes
     structure = np.ones((3, 3), dtype=int) # To count diagonal pixels as "connected"
@@ -44,7 +44,7 @@ def find_and_seperate_shapes(im_array: np.ndarray) -> Tuple[List[np.ndarray],
         # Find and save the binding box        
         r_st, r_end = row_inds[0], row_inds[-1]
         c_st, c_end = column_inds[0], column_inds[-1]
-        locations.append((r_st, c_st, r_end, c_end))
+        locations.append((int(r_st), int(c_st), int(r_end), int(c_end)))
 
         # Cutout out the shape
         shape = im_array[r_st:(r_end + 1), c_st:(c_end + 1)]
@@ -111,6 +111,8 @@ def to_MNIST_tensor(im: Image) -> ...: # ADD THIS!
 
     # Combine the shapes into one numpy array and then turn it to a tensor
     all_shapes = np.stack(shapes, axis=0)
-    tensor = torch.from_numpy(all_shapes)
+    tensor = torch.from_numpy(all_shapes).float()
+    # need tensor in format (n, 1, 28, 28) rather than (n, 28, 28)
+    tensor = tensor.unsqueeze(1) 
 
     return tensor, locations

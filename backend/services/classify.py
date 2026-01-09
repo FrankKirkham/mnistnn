@@ -44,6 +44,6 @@ def find_percentages(tensor) -> List[List[Tuple]]:
         sorted_result = result[inds]
         # Save the percentage with the number
         zipped_result = zip(inds.tolist(), sorted_result.tolist())
-        final.append(zipped_result)
+        final.append(list(zipped_result))
 
     return final

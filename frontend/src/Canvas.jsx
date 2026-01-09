@@ -10,7 +10,11 @@ function Canvas({canvasRef}) {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         
-        ctx.lineWidth = 2;
+        // Add a white background to make it easy to seperate numbers in backend
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.lineWidth = 4;
         ctx.lineCap = "round";
         ctx.strokeStyle = "black";
     }, [])
