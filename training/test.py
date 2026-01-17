@@ -2,7 +2,7 @@
 import torch
 from tqdm import tqdm
 from utils.preprocessing import load_data
-from utils.utils import SimpleFCNN
+from utils.utils import MnistCNN
 
 def eval(neural_network, test_loader):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -38,10 +38,8 @@ def main():
     # Load the saved model
     model_with_stats = torch.load("model_with_stats.pth", map_location=device)
     model = model_with_stats["model"]
-    means = model_with_stats["means"]
-    stds = model_with_stats["stds"]
     # Turn the model into a useable neural network
-    neural_network = SimpleFCNN().to(device)
+    neural_network = MnistCNN.to(device)
     neural_network.load_state_dict(model)
 
     # Run the test eval

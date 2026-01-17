@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 from tqdm import tqdm # For progress bars
 from utils.preprocessing import load_data
-from utils.utils import SimpleFCNN
+from utils.utils import MnistCNN
 
 def train(neural_network, train_loader, val_loader, epochs, learn_rate):
     # Set the model/nn to work on the set device (allows us to use GPU)
@@ -59,7 +59,7 @@ def train(neural_network, train_loader, val_loader, epochs, learn_rate):
 def main():
     train_loader, val_loader, _, means, stds = load_data()
 
-    neural_network = SimpleFCNN()
+    neural_network = MnistCNN()
 
     # Train the model
     train(neural_network, train_loader, val_loader, 1, 0.001) # 1 IS USED FOR TESTING, CHANGE LATER!
